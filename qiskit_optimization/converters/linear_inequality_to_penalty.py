@@ -69,6 +69,33 @@ class LinearInequalityToPenalty(QuadraticProgramConverter):
         self._penalty: Optional[float] = penalty
         self._should_define_penalty: bool = penalty is None
 
+    def run(self, problem):
+        r"""Convert inequality constraints into penalty terms of the objective function.
+
+        This methods converts the following patterns where x, y, and :math:`x_i` are binary variables
+        and P is a penalty factor.
+
+        .. math::
+
+            \begin{array}{}
+            \text { Inequality constraint } & & \text { Penalty term } \\
+            x \leq y & \rightarrow  & P(x-x y) \\
+            x \geq y & \rightarrow  & P(y-x y) \\
+            \sum_{i=1}^n x_i \leq 1, n \geq 2 & \rightarrow & P \sum_{i, j : i < j} x_i x_j\\
+            \sum_{i=1}^n x_i \geq n-1, n \geq 2 & \rightarrow & P \sum_{i, j : i < j} (1 - x_i) (1 - x_j)
+            \end{array}
+
+        Args:
+            problem: The problem to be solved.
+
+        Returns:
+            The converted problem
+
+        Raises:
+            QiskitOptimizationError: If an unsupported-type variable exists.
+        """
+        return self.convert(problem)
+
     def convert(self, problem: QuadraticProgram) -> QuadraticProgram:
         r"""Convert inequality constraints into penalty terms of the objective function.
 
