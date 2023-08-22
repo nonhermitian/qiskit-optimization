@@ -41,6 +41,20 @@ class LinearEqualityToPenalty(QuadraticProgramConverter):
         self._penalty: Optional[float] = penalty
         self._should_define_penalty: bool = penalty is None
 
+    def run(self, problem):
+        """Convert a problem with equality constraints into an unconstrained problem.
+
+        Args:
+            problem: The problem to be solved, that does not contain inequality constraints.
+
+        Returns:
+            The converted problem, that is an unconstrained problem.
+
+        Raises:
+            QiskitOptimizationError: If an inequality constraint exists.
+        """
+        return self.convert(problem)
+
     def convert(self, problem: QuadraticProgram) -> QuadraticProgram:
         """Convert a problem with equality constraints into an unconstrained problem.
 

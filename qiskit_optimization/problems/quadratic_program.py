@@ -106,6 +106,13 @@ class QuadraticProgram:
             f"{num_constraints} constraints, "
             f"'{self._name}')"
         )
+    
+    @classmethod
+    def from_docplex_mp(self, model, indicator_big_m=None):
+        """Generate a QuantumProgram from a CPLEX 
+        """
+        from qiskit_optimization.translators import from_docplex_mp
+        return from_docplex_mp(model, indicator_big_m=indicator_big_m)
 
     def clear(self) -> None:
         """Clears the quadratic program, i.e., deletes all variables, constraints, the

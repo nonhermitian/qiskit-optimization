@@ -51,6 +51,20 @@ class IntegerToBinary(QuadraticProgramConverter):
         self._conv: Dict[Variable, List[Tuple[str, int]]] = {}
         # e.g., self._conv = {x: [('x@1', 1), ('x@2', 2)]}
 
+    def run(self, problem):
+        """Convert an integer problem into a new problem with binary variables.
+
+        Args:
+            problem: The problem to be solved, that may contain integer variables.
+
+        Returns:
+            The converted problem, that contains no integer variables.
+
+        Raises:
+            QiskitOptimizationError: if variable or constraint type is not supported.
+        """
+        return self.convert(problem)
+
     def convert(self, problem: QuadraticProgram) -> QuadraticProgram:
         """Convert an integer problem into a new problem with binary variables.
 
