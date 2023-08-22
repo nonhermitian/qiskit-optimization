@@ -50,6 +50,8 @@ class IntegerToBinary(QuadraticProgramConverter):
         self._dst: Optional[QuadraticProgram] = None
         self._conv: Dict[Variable, List[Tuple[str, int]]] = {}
         # e.g., self._conv = {x: [('x@1', 1), ('x@2', 2)]}
+        self.input_types = (QuadraticProgram, )
+        self.output_types = (QuadraticProgram, )
 
     def run(self, problem):
         """Convert an integer problem into a new problem with binary variables.
