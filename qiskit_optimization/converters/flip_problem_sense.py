@@ -32,6 +32,7 @@ class _FlipProblemSense(QuadraticProgramConverter):
 
         self.input_types = (QuadraticProgram, )
         self.output_types = (QuadraticProgram, )
+        self.property_set = None
 
     def run(self, problem):
         """Flip the sense of a problem.

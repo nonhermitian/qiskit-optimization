@@ -52,6 +52,7 @@ class IntegerToBinary(QuadraticProgramConverter):
         # e.g., self._conv = {x: [('x@1', 1), ('x@2', 2)]}
         self.input_types = (QuadraticProgram, )
         self.output_types = (QuadraticProgram, )
+        self.property_set = None
 
     def run(self, problem):
         """Convert an integer problem into a new problem with binary variables.

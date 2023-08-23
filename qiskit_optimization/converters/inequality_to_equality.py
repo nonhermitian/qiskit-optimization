@@ -55,6 +55,7 @@ class InequalityToEquality(QuadraticProgramConverter):
         self._mode = mode
         self.input_types = (QuadraticProgram, )
         self.output_types = (QuadraticProgram, )
+        self.property_set = None
 
     def run(self, problem):
         """Convert a problem with inequality constraints into one with only equality constraints.

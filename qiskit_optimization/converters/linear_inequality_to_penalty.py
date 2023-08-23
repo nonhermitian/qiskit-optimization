@@ -70,6 +70,7 @@ class LinearInequalityToPenalty(QuadraticProgramConverter):
         self._should_define_penalty: bool = penalty is None
         self.input_types = (QuadraticProgram, )
         self.output_types = (QuadraticProgram, )
+        self.property_set = None
 
     def run(self, problem):
         r"""Convert inequality constraints into penalty terms of the objective function.
