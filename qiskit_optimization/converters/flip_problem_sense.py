@@ -30,6 +30,20 @@ class _FlipProblemSense(QuadraticProgramConverter):
     def __init__(self) -> None:
         self._src_num_vars: Optional[int] = None
 
+        self.input_types = (QuadraticProgram, )
+        self.output_types = (QuadraticProgram, )
+
+    def run(self, problem):
+        """Flip the sense of a problem.
+
+        Args:
+            problem: The problem to be flipped.
+
+        Returns:
+            A converted problem, that has the flipped sense.
+        """
+        return self.convert(problem)
+
     def convert(self, problem: QuadraticProgram) -> QuadraticProgram:
         """Flip the sense of a problem.
 
