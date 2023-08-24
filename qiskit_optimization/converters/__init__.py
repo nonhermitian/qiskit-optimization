@@ -44,6 +44,7 @@ Converters
    MaximizeToMinimize
    MinimizeToMaximize
    QuadraticProgramToQubo
+   QuadraticProgram2Ising
 
 """
 
@@ -55,6 +56,7 @@ from .flip_problem_sense import MaximizeToMinimize
 from .flip_problem_sense import MinimizeToMaximize
 from .quadratic_program_to_qubo import QuadraticProgramToQubo
 from .quadratic_program_converter import QuadraticProgramConverter
+from .quadratic_program_to_ising import QuadraticProgram2Ising
 
 __all__ = [
     "InequalityToEquality",
@@ -65,4 +67,5 @@ __all__ = [
     "MinimizeToMaximize",
     "QuadraticProgramConverter",
     "QuadraticProgramToQubo",
+    " QuadraticProgram2Ising",
 ]
