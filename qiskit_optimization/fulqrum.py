@@ -21,8 +21,8 @@ class PropertySet(dict):
         return None
 
 class CompositeWorkflow:
-    def __init__(self, passes, name='', store_final_output=False, strict_validation=True):
-        self.passes = passes
+    def __init__(self, blocks, name='', store_final_output=False, strict_validation=True):
+        self.blocks = blocks
         self.stages = {}
         self.name = name
         self.store_final_output = store_final_output
@@ -33,9 +33,9 @@ class CompositeWorkflow:
         self.property_set = PropertySet()
 
     def _validate_passes(self):
-        self.input_types = self.passes[0].input_types
-        input_types = self.passes[0].input_types
-        for _, individual_pass in enumerate(self.passes):
+        self.input_types = self.blocks[0].input_types
+        input_types = self.blocks[0].input_types
+        for _, individual_pass in enumerate(self.blocks):
             # If the pass is itself a CompositeWorkflow then run its validation
             if isinstance(individual_pass, CompositeWorkflow):
                 if individual_pass.name in self.stages:
@@ -61,7 +61,7 @@ class CompositeWorkflow:
     def run(self, input):
         temp = copy.deepcopy(input)
         working_props = self.property_set
-        for individual_pass in self.passes:
+        for individual_pass in self.blocks:
             individual_pass.property_set = working_props
             temp = individual_pass.run(temp)
             if isinstance(individual_pass, CompositeWorkflow):

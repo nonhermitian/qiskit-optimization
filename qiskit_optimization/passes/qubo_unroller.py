@@ -30,6 +30,6 @@ class UnrollQUBOVariables():
     @validate_output_type
     def run(self, solution):
         x = np.fromiter(solution[1], dtype=int)
-        for converter in self.workflow.passes[::-1]:
+        for converter in self.workflow.blocks[::-1]:
             x = converter.interpret(x)
         return x
