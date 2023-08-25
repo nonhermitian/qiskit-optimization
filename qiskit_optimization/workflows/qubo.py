@@ -16,13 +16,13 @@ QUBO workflow
 from qiskit_optimization.converters import (InequalityToEquality, IntegerToBinary, 
                                             LinearEqualityToPenalty, LinearInequalityToPenalty,
                                             MaximizeToMinimize)
-from qiskit_optimization.fulqrum import CompositeWorkflow
+from qiskit_optimization.fulqrum import Workflow
 
 
 def QUBO_transformer():
-    return CompositeWorkflow([InequalityToEquality(), # Transformation
-                              IntegerToBinary(), # Transformation
-                              LinearEqualityToPenalty(), # Transformation
-                              LinearInequalityToPenalty(), # Transformation
-                              MaximizeToMinimize(), # Transformation
-                             ], name='qubo-transformer')
+    return Workflow([InequalityToEquality(), # Transformation
+                     IntegerToBinary(), # Transformation
+                     LinearEqualityToPenalty(), # Transformation
+                     LinearInequalityToPenalty(), # Transformation
+                     MaximizeToMinimize(), # Transformation
+                    ], name='qubo-transformer')

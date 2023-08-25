@@ -20,7 +20,7 @@ class PropertySet(dict):
     def __missing__(self, key):
         return None
 
-class CompositeWorkflow:
+class Workflow:
     def __init__(self, blocks, name='', store_final_output=False, strict_validation=True):
         self.blocks = blocks
         self.stages = {}
@@ -37,7 +37,7 @@ class CompositeWorkflow:
         input_types = self.blocks[0].input_types
         for _, individual_pass in enumerate(self.blocks):
             # If the pass is itself a CompositeWorkflow then run its validation
-            if isinstance(individual_pass, CompositeWorkflow):
+            if isinstance(individual_pass, Workflow):
                 if individual_pass.name in self.stages:
                     raise Exception(f'Duplicate stage name {individual_pass.name}')
                 self.stages[individual_pass.name] = individual_pass
@@ -64,7 +64,7 @@ class CompositeWorkflow:
         for individual_pass in self.blocks:
             individual_pass.property_set = working_props
             temp = individual_pass.run(temp)
-            if isinstance(individual_pass, CompositeWorkflow):
+            if isinstance(individual_pass, Workflow):
                 if individual_pass.store_final_output:
                     working_props[individual_pass.name] = {"final_output": temp}
         if self.store_final_output:
