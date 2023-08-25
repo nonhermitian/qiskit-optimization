@@ -21,7 +21,7 @@ class PropertySet(dict):
         return None
 
 class CompositeWorkflow:
-    def __init__(self, passes, name=None, store_final_output=False, strict_validation=True):
+    def __init__(self, passes, name='', store_final_output=False, strict_validation=True):
         self.passes = passes
         self.stages = {}
         self.name = name
@@ -67,4 +67,25 @@ class CompositeWorkflow:
             if isinstance(individual_pass, CompositeWorkflow):
                 if individual_pass.store_final_output:
                     working_props[individual_pass.name] = {"final_output": temp}
+        if self.store_final_output:
+             working_props[self.name] = {"final_output": temp}
         return temp
+
+
+class LazyEval:
+    def __init__(self, object, keys):
+        if not isinstance(keys, tuple):
+            keys = tuple(keys)
+        self.object = object
+        self.keys = keys
+        self.evaled_object = None
+    def __getattr__(self, attr):
+        if self.evaled_object:
+            return getattr(self.evaled_object, attr)
+        self.lazyeval_return()
+    def lazyeval_return(self):
+        res = self.object
+        for key in self.keys:
+            res = res.get(key)
+        self.evaled_object = res
+        return res
